@@ -60,7 +60,18 @@ class ViewController: UIViewController, UINavigationControllerDelegate, UIImageP
             guard let results = request.results as? [VNClassificationObservation] else {
                 fatalError("Unable to get results from ML model")
             }
-            print(results)
+            
+            var finalResult = ""
+            
+            if let firstResult = results.first {
+                finalResult = firstResult.identifier
+            } else {
+                finalResult = "I am not sure"
+            }
+            
+            DispatchQueue.main.async {
+                self.showResults(for: finalResult)
+            }
         }
         
         let handler = VNImageRequestHandler(ciImage: image)
@@ -69,6 +80,13 @@ class ViewController: UIViewController, UINavigationControllerDelegate, UIImageP
         } catch {
             fatalError(error.localizedDescription)
         }
+    }
+    
+    private func showResults(for result: String) {
+        let alert = UIAlertController(title: "Looks like this is...", message: result, preferredStyle: .alert)
+        let okButton = UIAlertAction(title: "OK", style: .cancel)
+        alert.addAction(okButton)
+        present(alert, animated: true)
     }
 }
 
