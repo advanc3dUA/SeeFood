@@ -83,7 +83,7 @@ class ViewController: UIViewController, UINavigationControllerDelegate, UIImageP
     }
     
     private func showResults(for result: String) {
-        let alert = UIAlertController(title: "Looks like this is...", message: result, preferredStyle: .alert)
+        let alert = UIAlertController(title: "Looks like this is a...", message: result, preferredStyle: .alert)
         let okButton = UIAlertAction(title: "OK", style: .cancel)
         alert.addAction(okButton)
         present(alert, animated: true)
